@@ -1,20 +1,21 @@
 from exts import db
 
 """
-class Recipe:
+class Aluno:
     id: int primary key
-    title:str
-    description:str (text)
-
+    nome_aluno:str
+    matricula:str (text)
+    email:str
 """
 
-class Recipe(db.Model):
+class Aluno(db.Model):
     id=db.Column(db.Integer(),primary_key=True)
-    title=db.Column(db.String(),nullable=False)
-    description=db.Column(db.Text(),nullable=False)
+    nome_aluno=db.Column(db.String(50),nullable=False,unique=True)
+    matricula=db.Column(db.Text(20),nullable=False,unique=True)
+    email=db.Column(db.String(80),nullable=False,unique=True)
 
     def __repr__(self):
-        return f"<Recipe {self.title} >"
+        return f"<Aluno {self.nome_aluno} >"
 
 
     def save(self):
@@ -25,9 +26,10 @@ class Recipe(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def update(self,title,description):
-        self.title=title
-        self.description=description
+    def update(self,nome_aluno,matricula,email):
+        self.nome_aluno=nome_aluno
+        self.matricula=matricula
+        self.email=email
 
         db.session.commit()
 
