@@ -31,6 +31,7 @@ login_model=auth_ns.model(
 class SignUp(Resource):
     @auth_ns.expect(signup_model)
     def post(self):
+        """Cadastro de usuarios"""
         data=request.get_json()
 
 
@@ -57,6 +58,7 @@ class Login(Resource):
 
     @auth_ns.expect(login_model)
     def post(self):
+        """Login de usuarios"""
         data=request.get_json()
 
         username=data.get('username')

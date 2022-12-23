@@ -36,17 +36,22 @@ class AlunosResource(Resource):
 @aluno_ns.route('/criar')
 class AlunosResource(Resource):    
     @aluno_ns.expect(aluno_model)
-    @jwt_required()
+    # @jwt_required()
     def post(self):
         """Cria um novo aluno"""
         data=request.get_json()
 
         nome_aluno=data.get('nome_aluno')
+        matricula=data.get('matricula')
+        
 
         db_nome_aluno=Aluno.query.filter_by(nome_aluno=nome_aluno).first()
+        db_matricula=Aluno.query.filter_by(matricula=matricula).first()
 
         if db_nome_aluno is not None:
             return jsonify({"message":f"Usuario com o username {nome_aluno} ja existe"})
+        if db_matricula is not None:
+            return jsonify({"message":f"Usuario com o numero de matricula {matricula} ja existe"})
 
         new_aluno=Aluno(
             nome_aluno=data.get('nome_aluno'),
@@ -65,14 +70,14 @@ class AlunoResource(Resource):
 
     @aluno_ns.marshal_with(aluno_model)
     def get(self,id):
-        """busca um aluno pela id """
+        """B2wusca um aluno pela id """
         aluno=Aluno.query.get_or_404(id)
 
         return aluno
 
 
     @aluno_ns.marshal_with(aluno_model)
-    @jwt_required()
+    # @jwt_required()
     def put(self,id):
         """Atualiza um aluno pela id """
 
@@ -87,7 +92,7 @@ class AlunoResource(Resource):
 
 
     @aluno_ns.marshal_with(aluno_model)
-    @jwt_required()
+    # @jwt_required()
     def delete(self,id):
         """Deleta um aluno pela id """
 
