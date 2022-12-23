@@ -5,7 +5,7 @@ from flask_jwt_extended import JWTManager,create_access_token,create_refresh_tok
 from flask import Flask,request,jsonify,make_response
 
 
-auth_ns=Namespace('auth',description="A namespace for our Authentication")
+auth_ns=Namespace('auth',description="Aba com as autenticações")
 
 
 
@@ -39,7 +39,7 @@ class SignUp(Resource):
         db_user=User.query.filter_by(username=username).first()
 
         if db_user is not None:
-            return jsonify({"message":f"User with username {username} already exists"})
+            return jsonify({"message":f"Usuario com o username {username} ja existe"})
 
         new_user=User(
             username=data.get('username'),
